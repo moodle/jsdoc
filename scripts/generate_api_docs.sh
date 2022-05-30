@@ -14,15 +14,12 @@ echo "= Versions: ${VERSIONLIST[*]}"
 echo "= Branches: ${BRANCHLIST[*]}"
 echo "============================================================================"
 
-mkdir -p "build"
-touch "build/.nojekyll"
-
 for index in ${!VERSIONLIST[@]}; do
   version=${VERSIONLIST[$index]}
   moodlebranch=${BRANCHLIST[$index]}
   APIDOCDIR="build/${version}"
   echo "========================================"
-  echo "== Generating all API Documentation for ${version} using branch ${moodlebranch}"
+  echo "== Generating JavaScript API Documentation for ${version} using branch ${moodlebranch}"
   echo "== Generated documentation will be placed into ${APIDOCDIR}"
   echo "========================================"
   mkdir -p "${APIDOCDIR}"
@@ -37,57 +34,27 @@ for index in ${!VERSIONLIST[@]}; do
   git checkout "remotes/origin/${moodlebranch}"
   HASH=`git log -1 --format="%h"`
 
-  if [ "${version}" = "3.9" ]
-  then
-    echo "========================================"
-    echo "== Skipping JS Documentation for 3.9"
-    echo "========================================"
-  else
-    echo "========================================"
-    echo "== Installing NodeJS Dependencies"
-    echo "========================================"
-    npm ci
-
-    echo "========================================"
-    echo "== Generating ignorefiles"
-    echo "========================================"
-    npx grunt ignorefiles
-
-    echo "========================================"
-    echo "== Generating JS Documentation"
-    echo "========================================"
-    npx grunt jsdoc
-
-    echo "========================================"
-    echo "== Moving jsdocs into ${APIDOCDIR}/jsdoc"
-    echo "========================================"
-    cd "${ROOT}"
-    mv "${INPUT}/jsdoc" "${APIDOCDIR}/jsdoc"
-  fi
+  echo "========================================"
+  echo "== Installing NodeJS Dependencies"
+  echo "========================================"
+  npm ci
 
   echo "========================================"
-  echo "== Building PHP Documentation"
+  echo "== Generating ignorefiles"
   echo "========================================"
-  # Generate the php documentation
-  docker run \
-      -v "${ROOT}":"${ROOT}" \
-      -w "${ROOT}" \
-      -e HASH="${HASH}" \
-      -e INPUT="${INPUT}" \
-      -e VERSION="${version}" \
-      -u "${UID}":"${UID}" \
-      doxygen
+  npx grunt ignorefiles
 
-  # Move the built files into the build directory
   echo "========================================"
-  echo "== Moving phpdocs into ${APIDOCDIR}/phpdocs"
+  echo "== Generating JS Documentation"
   echo "========================================"
+  npx grunt jsdoc
+
+  echo "========================================"
+  echo "== Moving jsdocs into ${APIDOCDIR}/jsdoc"
   cd "${ROOT}"
-  mv "build/phpdocs/${version}/html" "${APIDOCDIR}/phpdocs"
+  mv "${INPUT}/jsdoc" "${APIDOCDIR}"
 
-  echo "========================================"
   echo "== Completed documentation generation for ${version}"
-  echo "========================================"
 done
 
 echo "============================================================================"

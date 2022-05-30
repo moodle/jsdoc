@@ -1,8 +1,8 @@
 name: Generate API docs and publish to Github Pages
 
 env:
-  BRANCHLIST: "MOODLE_39_STABLE MOODLE_311_STABLE MOODLE_400_STABLE master"
-  VERSIONLIST: "3.9 3.11 4.00 master"
+  BRANCHLIST: "MOODLE_311_STABLE MOODLE_400_STABLE master"
+  VERSIONLIST: "3.11 4.00 master"
 
 on:
   schedule:
@@ -30,9 +30,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version-file: '.moodle/.nvmrc'
-
-      - name: Build doxygen
-        run: docker build --tag=doxygen phpdocs/doxygen
 
       - name: Generate all API Documentation
         run: ./scripts/generate_api_docs.sh
