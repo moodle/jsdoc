@@ -50,7 +50,7 @@ for index in ${!VERSIONLIST[@]}; do
   npx grunt jsdoc
 
   echo "========================================"
-  echo "== Moving jsdocs into ${APIDOCDIR}/jsdoc"
+  echo "== Moving jsdocs into ${APIDOCDIR}"
   cd "${ROOT}"
   mv "${INPUT}/jsdoc" "${APIDOCDIR}"
 
