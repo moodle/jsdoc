@@ -34,23 +34,25 @@ for index in ${!VERSIONLIST[@]}; do
   git checkout "remotes/origin/${moodlebranch}"
   HASH=`git log -1 --format="%h"`
 
-  echo "========================================"
-  echo "== Installing NodeJS Dependencies"
-  echo "========================================"
-  npm ci
-
-  echo "========================================"
-  echo "== Generating ignorefiles"
-  echo "========================================"
-  npx grunt ignorefiles
-
-  echo "========================================"
-  echo "== Generating JS Documentation"
-  echo "========================================"
   if [ "${version}" = "3.9" ]
   then
-    echo "=== Skipping for 3.9"
+    echo "========================================"
+    echo "== Skipping JS Documentation for 3.9"
+    echo "========================================"
   else
+    echo "========================================"
+    echo "== Installing NodeJS Dependencies"
+    echo "========================================"
+    npm ci
+
+    echo "========================================"
+    echo "== Generating ignorefiles"
+    echo "========================================"
+    npx grunt ignorefiles
+
+    echo "========================================"
+    echo "== Generating JS Documentation"
+    echo "========================================"
     npx grunt jsdoc
 
     echo "========================================"
