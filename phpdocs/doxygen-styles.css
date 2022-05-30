@@ -1,0 +1,19 @@
+#titlearea {
+    background: rgb(249,128,18);
+    background: linear-gradient(90deg, rgba(249,128,18,1) 0%, rgba(40,40,40,1) 50%, rgba(104,101,102,1) 100%);
+}
+#projectlogo img{
+    padding-left: 1em;
+    height: 76px;
+}
+#projectalign {
+    width: 99%;
+    padding-right: 1em;
+    text-align: right;
+    color: white;
+}
+#navrow1, #navrow2, #navrow3, #navrow4, #nav-path, .tablist li, .navpath ul {
+    background-image: none;
+    background: rgb(104,101,102);
+    background: linear-gradient(180deg, rgba(104,101,102,1) 0%, rgba(255,255,255,1) 100%);
+}
