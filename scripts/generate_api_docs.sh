@@ -47,13 +47,18 @@ for index in ${!VERSIONLIST[@]}; do
   echo "========================================"
   echo "== Generating JS Documentation"
   echo "========================================"
-  npx grunt jsdoc
+  if [ "${version}" = "3.9" ]
+  then
+    echo "=== Skipping for 3.9"
+  else
+    npx grunt jsdoc
 
-  echo "========================================"
-  echo "== Moving jsdocs into ${APIDOCDIR}/jsdoc"
-  echo "========================================"
-  cd "${ROOT}"
-  mv "${INPUT}/jsdoc" "${APIDOCDIR}/jsdoc"
+    echo "========================================"
+    echo "== Moving jsdocs into ${APIDOCDIR}/jsdoc"
+    echo "========================================"
+    cd "${ROOT}"
+    mv "${INPUT}/jsdoc" "${APIDOCDIR}/jsdoc"
+  fi
 
   echo "========================================"
   echo "== Building PHP Documentation"
