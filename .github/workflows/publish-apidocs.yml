@@ -1,8 +1,8 @@
 name: Generate API docs and publish to Github Pages
 
 env:
-  BRANCHLIST: "MOODLE_39_STABLE MOODLE_311_STABLE master"
-  VERSIONLIST: "3.9 3.11 master"
+  BRANCHLIST: "MOODLE_39_STABLE MOODLE_311_STABLE MOODLE_400_STABLE master"
+  VERSIONLIST: "3.9 3.11 4.00 master"
 
 on:
   schedule:

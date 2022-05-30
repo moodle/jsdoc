@@ -14,6 +14,9 @@ echo "= Versions: ${VERSIONLIST[*]}"
 echo "= Branches: ${BRANCHLIST[*]}"
 echo "============================================================================"
 
+mkdir -p "build"
+touch "build/.nojekyll"
+
 for index in ${!VERSIONLIST[@]}; do
   version=${VERSIONLIST[$index]}
   moodlebranch=${BRANCHLIST[$index]}
