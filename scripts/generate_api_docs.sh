@@ -8,6 +8,7 @@ PHPDOCROOT="${ROOT}/phpdocs"
 VERSIONLIST=(${VERSIONLIST[@]:-master})
 BRANCHLIST=(${BRANCHLIST[@]:-master})
 
+mkdir -p build
 echo "============================================================================"
 echo "= Building for the following versions and branches:"
 echo "= Versions: ${VERSIONLIST[*]}"
