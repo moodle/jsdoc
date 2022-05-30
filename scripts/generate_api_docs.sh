@@ -22,7 +22,6 @@ for index in ${!VERSIONLIST[@]}; do
   echo "== Generating JavaScript API Documentation for ${version} using branch ${moodlebranch}"
   echo "== Generated documentation will be placed into ${APIDOCDIR}"
   echo "========================================"
-  mkdir -p "${APIDOCDIR}"
 
   # Change into the Moodle directory to get some information.
   export INPUT="${ROOT}/.moodle"
