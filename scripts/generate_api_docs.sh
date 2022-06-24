@@ -15,6 +15,8 @@ echo "= Versions: ${VERSIONLIST[*]}"
 echo "= Branches: ${BRANCHLIST[*]}"
 echo "============================================================================"
 
+htmlbranchlist=""
+
 for index in ${!VERSIONLIST[@]}; do
   version=${VERSIONLIST[$index]}
   moodlebranch=${BRANCHLIST[$index]}
@@ -55,7 +57,14 @@ for index in ${!VERSIONLIST[@]}; do
   mv "${INPUT}/jsdoc" "${APIDOCDIR}"
 
   echo "== Completed documentation generation for ${version}"
+
+  htmlbranchlist="${htmlbranchlist}
+        <li><a href='./${version}'>Moodle ${version}</a></li>"
 done
+
+cat "${ROOT}/index.head.tpl" > "${ROOT}/build/index.html"
+echo "${htmlbranchlist}" >> "${ROOT}/build/index.html"
+cat "${ROOT}/index.foot.tpl" >> "${ROOT}/build/index.html"
 
 echo "============================================================================"
 echo "= Documentation build completed."
