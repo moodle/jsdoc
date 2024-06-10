@@ -5,8 +5,8 @@ SCRIPTSDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT="$( cd "$( dirname "${SCRIPTSDIR}" )" && pwd )"
 PHPDOCROOT="${ROOT}/phpdocs"
 
-VERSIONLIST=(${VERSIONLIST[@]:-master})
-BRANCHLIST=(${BRANCHLIST[@]:-master})
+VERSIONLIST=(${VERSIONLIST[@]:-main})
+BRANCHLIST=(${BRANCHLIST[@]:-main})
 
 mkdir -p build
 echo "============================================================================"
