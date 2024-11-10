@@ -105,8 +105,16 @@
  * @copyright  2018 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery', 'core/log', 'core/autoscroll', 'core/str', 'core/modal_cancel', 'core/modal_events', 'core/notification'],
-function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
+define([
+    'jquery',
+    'core/log',
+    'core/autoscroll',
+    'core/event_dispatcher',
+    'core/str',
+    'core/modal_cancel',
+    'core/modal_events',
+    'core/notification',
+], function($, log, autoScroll, EventDispatcher, str, ModalCancel, ModalEvents, Notification) {
 
     /**
      * Default parameters
@@ -240,10 +248,16 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
      * @type {Object}
      */
     SortableList.EVENTS = {
+        // Legacy jQuery events.
         DRAGSTART: 'sortablelist-dragstart',
         DRAG: 'sortablelist-drag',
         DROP: 'sortablelist-drop',
-        DRAGEND: 'sortablelist-dragend'
+        DRAGEND: 'sortablelist-dragend',
+        // Native Javascript events.
+        elementDragStart: 'core/sortable_list:dragStart',
+        elementDrag: 'core/sortable_list:drag',
+        elementDrop: 'core/sortable_list:drop',
+        elementDragEnd: 'core/sortable_list:dragEnd',
     };
 
     /**
@@ -387,7 +401,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
             });
         }
 
-       this.executeCallback(SortableList.EVENTS.DRAGSTART);
+       this.executeCallback(SortableList.EVENTS.elementDragStart);
     };
 
     /**
@@ -441,7 +455,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
             startTime: new Date().getTime()
         };
 
-        this.executeCallback(SortableList.EVENTS.DRAGSTART);
+        this.executeCallback(SortableList.EVENTS.elementDragStart);
         this.displayMoveDialogue(clickedElement);
     };
 
@@ -562,7 +576,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
             this.info.dropped = true;
             this.info.positionChanged = this.hasPositionChanged(this.info);
             var oldinfo = this.info;
-            this.executeCallback(SortableList.EVENTS.DROP);
+            this.executeCallback(SortableList.EVENTS.elementDrop);
             this.finishDragging();
 
             if (evt.type === 'touchend'
@@ -626,7 +640,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
         // Save the current position of the dragged element in the list.
         this.info.targetList = parentElement;
         this.info.targetNextElement = beforeElement;
-        this.executeCallback(SortableList.EVENTS.DRAG);
+        this.executeCallback(SortableList.EVENTS.elementDrag);
     };
 
     /**
@@ -640,7 +654,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
         }
         $(window).off('mousemove touchmove.notPassive mouseup touchend.notPassive', $.proxy(this.dragHandler, this));
         $(window).off('keypress', $.proxy(this.dragcancelHandler, this));
-        this.executeCallback(SortableList.EVENTS.DRAGEND);
+        this.executeCallback(SortableList.EVENTS.elementDragEnd);
         this.info = null;
     };
 
@@ -651,7 +665,18 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
      * @param {String} eventName
      */
     SortableList.prototype.executeCallback = function(eventName) {
-        this.info.element.trigger(eventName, this.info);
+        EventDispatcher.dispatchEvent(eventName, this.info, this.info.element[0]);
+
+        // The following event trigger is legacy and will be removed in the future.
+        // This approach provides a backwards-compatibility layer for the new events.
+        // Code should be updated to make use of native events.
+        const legacyEventNamesMap = new Map([
+            [SortableList.EVENTS.elementDragStart, SortableList.EVENTS.DRAGSTART],
+            [SortableList.EVENTS.elementDrag, SortableList.EVENTS.DRAG],
+            [SortableList.EVENTS.elementDrop, SortableList.EVENTS.DROP],
+            [SortableList.EVENTS.elementDragEnd, SortableList.EVENTS.DRAGEND],
+        ]);
+        this.info.element.trigger(legacyEventNamesMap.get(eventName), this.info);
     };
 
     /**
@@ -791,7 +816,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
                 this.info.positionChanged = this.hasPositionChanged(this.info);
                 this.info.dropped = true;
                 clickedElement.focus();
-                this.executeCallback(SortableList.EVENTS.DROP);
+                this.executeCallback(SortableList.EVENTS.elementDrop);
                 modal.hide();
             }, this);
             modal.getRoot().on('click', '[data-core_sortable_list-quickmove]', quickMoveHandler);
@@ -824,7 +849,7 @@ function($, log, autoScroll, str, ModalCancel, ModalEvents, Notification) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Nov 03 2024 02:51:26 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Nov 10 2024 02:46:30 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
