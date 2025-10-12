@@ -157,7 +157,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line306">line 306</a>
+        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -502,7 +502,7 @@ and we need to mess a bit with the available tabs in the chooser</p></li></ul></
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line326">line 326</a>
+        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -645,7 +645,7 @@ and we need to mess a bit with the available tabs in the chooser</p></li></ul></
 
     
 
-    <h4 class="name" id="~partiallyAppliedFavouriteManager"><span class="type-signature type-signature-inner">(inner) </span>partiallyAppliedFavouriteManager<span class="signature">(moduleData, sectionnum)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="~partiallyAppliedFavouriteManager"><span class="type-signature type-signature-inner">(inner) </span>partiallyAppliedFavouriteManager<span class="signature">(moduleData, sectionnum, sectionid)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -662,7 +662,7 @@ We have our array of modules so we can rerender the favourites area and have all
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line364">line 364</a>
+        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line373">line 373</a>
     </li></ul></dd>
     
 
@@ -776,6 +776,34 @@ We have our array of modules so we can rerender the favourites area and have all
             
 
             <td class="description last"><p>We need this to add the sectionnum to the URL's in the faves area after rerender</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sectionid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>We need this to add the sectionid to the URL's in the faves area
+Section ID is preferred over section number, as section numbers can change.</p></td>
         </tr>
 
     
@@ -987,7 +1015,7 @@ We have our array of modules so we can rerender the favourites area and have all
 
     
 
-    <h4 class="name" id="~sectionMapper"><span class="type-signature type-signature-inner">(inner) </span>sectionMapper<span class="signature">(webServiceData, num, sectionreturnnum, beforemod)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="~sectionMapper"><span class="type-signature type-signature-inner">(inner) </span>sectionMapper<span class="signature">(webServiceData, num, sectionreturnnum, beforemod, id)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -1004,7 +1032,7 @@ of the WS data then add on the section num to the addoption URL</p></li></ul></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line200">line 200</a>
+        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -1175,6 +1203,33 @@ of the WS data then add on the section num to the addoption URL</p></li></ul></d
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number of the section we need to append to the links</p></td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1240,7 +1295,7 @@ of the WS data then add on the section num to the addoption URL</p></li></ul></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line223">line 223</a>
+        <a href="course_amd_src_activitychooser.js.html">course/amd/src/activitychooser.js</a>, <a href="course_amd_src_activitychooser.js.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -1421,7 +1476,7 @@ of the WS data then add on the section num to the addoption URL</p></li></ul></d
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Oct 05 2025 03:00:24 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Oct 12 2025 02:55:45 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
